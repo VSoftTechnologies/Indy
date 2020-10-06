@@ -86,15 +86,19 @@
           "dest": "src"
         },
         {
-          "src": ".\\Lib\\Protocols\\Res\\*.res",
-          "dest": "src\res"
-        },
-        {
-          "src": ".\\Lib\\Protocols\\IndyProtocols{libsuffix}.dpr*",
+          "src": ".\\Lib\\Protocols\\IndyProtocols$libSuffix$.dpk",
           "dest": "src"
         },
         {
-          "src": ".\\Lib\\Protocols\\dclIndyProtocols{libsuffix}.dpr*",
+          "src": ".\\Lib\\Protocols\\IndyProtocols$libSuffix$.dproj",
+          "dest": "src"
+        },
+        {
+          "src": ".\\Lib\\Protocols\\dclIndyProtocols$libSuffix$.dpk",
+          "dest": "src"
+        },
+        {
+          "src": ".\\Lib\\Protocols\\dclIndyProtocols$libSuffix$.dproj",
           "dest": "src"
         }
       ],
@@ -119,7 +123,7 @@
       "build": [
         {
           "id": "IndyProtocols",
-          "project": ".\\Lib\\Protocols\\IndyProtocols{libsuffix}.dproj",
+          "project": ".\\Lib\\Protocols\\IndyProtocols$libSuffix$.dproj",
           "config": "release",
           "keepBin": true,
           "bplOutputDir": "rtl",
@@ -128,7 +132,7 @@
         },
         {
           "id": "dclIndyProtocols",
-          "project": ".\\Lib\\Protocols\\dclIndyProtocols{libsuffix}.dproj",
+          "project": ".\\Lib\\Protocols\\dclIndyProtocols$libSuffix$.dproj",
           "config": "release",
           "keepBin": true,
           "bplOutputDir": "rtl",
@@ -139,16 +143,16 @@
       "runtime": [
         {
           "buildId": "IndyProtocols",
-          "src": ".\\rtl\\IndyProtocols{compilerVersion}.bpl",
-          "preCompiled": false
+          "src": ".\\rtl\\IndyProtocols$libSuffix$.bpl",
+          "dest": "rtl"
         }
       ],
       "design": [
         {
           "buildId": "dclIndyProtocols",
-          "src": ".\\rtl\\dclIndyProtocols{compilerVersion}.bpl",
-          "install": true,
-          "preCompiled": false
+          "src": ".\\rtl\\dclIndyProtocols$libSuffix$.bpl",
+          "dest": "rtl",
+          "install": true
         }
       ]
     }
