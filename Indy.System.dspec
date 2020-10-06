@@ -83,10 +83,6 @@
           "dest": "src"
         },
         {
-          "src": ".\\Lib\\System\\Res\\*.res",
-          "dest": "src\res"
-        },
-        {
           "src": ".\\Lib\\System\\IndySystem$libsuffix$.dpk",
           "dest": "src"
         },
@@ -121,27 +117,12 @@
           "bplOutputDir": "rtl",
           "dcpOutputDir": "lib",
           "dcuOutputDir": "lib"
-        },
-        {
-          "id": "dclIndySystem",
-          "project": ".\\Lib\\System\\dclIndySystem$libsuffix$.dproj",
-          "keepBin": true,
-          "bplOutputDir": "rtl",
-          "dcpOutputDir": "lib",
-          "dcuOutputDir": "lib"
         }
       ],
       "runtime": [
         {
           "buildId": "IndySystem",
-          "src": ".\\rtl\\IndySystem$compilerVersion$.bpl",
-          "dest": "rtl"
-        }
-      ],
-      "design": [
-        {
-          "buildId": "dclIndySystem",
-          "src": ".\\rtl\\dclIndySystem$compilerVersion$.bpl",
+          "src": ".\\rtl\\IndySystem$libSuffix$.bpl",
           "dest": "rtl"
         }
       ]
