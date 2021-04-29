@@ -64,6 +64,11 @@
       "compiler": "10.3",
       "platforms": "Win32, Win64",
       "template": "default"
+    },
+    {
+      "compiler": "10.4",
+      "platforms": "Win32, Win64",
+      "template": "default"
     }
   ],
   "templates": [
@@ -86,6 +91,26 @@
           "dest": "src"
         },
         {
+          "src": ".\\Lib\\Protocols\\*.inc",
+          "dest": "src"
+        },
+        {
+          "src": ".\\Lib\\Protocols\\*.dcr",
+          "dest": "src"
+        },
+        {
+          "src": ".\\Lib\\Protocols\\*IndyProtocols$libSuffix$.res",
+          "dest": "src"
+        },
+        {
+          "src" : ".\\Lib\\Protocols\\IdSASLListEditorForm.*",
+          "dest": "src"
+        },
+        {
+          "src": ".\\Lib\\Protocols\\ZLib\\**\\*.*",
+          "dest": "src\\ZLib"
+        },
+        {
           "src": ".\\Lib\\Protocols\\IndyProtocols$libSuffix$.dpk",
           "dest": "src"
         },
@@ -102,14 +127,6 @@
           "dest": "src"
         }
       ],
-      "lib": [
-        {
-          "src": "\\lib\\{compiler}\\{platform}\\lib",
-          "dest": "lib",
-          "ignore": true,
-          "comment": "ingore means don't bomb if folder does not exist"
-        }
-      ],
       "searchPaths": [
         {
           "path": "src",
@@ -123,21 +140,13 @@
       "build": [
         {
           "id": "IndyProtocols",
-          "project": ".\\Lib\\Protocols\\IndyProtocols$libSuffix$.dproj",
-          "config": "release",
-          "keepBin": true,
-          "bplOutputDir": "rtl",
-          "dcpOutputDir": "lib",
-          "dcuOutputDir": "lib"
-        },
+          "project": ".\\src\\IndyProtocols$libSuffix$.dproj",
+          "buildForDesign": true,          
+          "buildForDesignComment" : "when true, will build also win32 if the platform is not win32, so that other packages that need this for design will work"                 },
         {
           "id": "dclIndyProtocols",
-          "project": ".\\Lib\\Protocols\\dclIndyProtocols$libSuffix$.dproj",
-          "config": "release",
-          "keepBin": true,
-          "bplOutputDir": "rtl",
-          "dcpOutputDir": "lib",
-          "dcuOutputDir": "lib"
+          "project": ".\\src\\dclIndyProtocols$libSuffix$.dproj",
+          "designOnly" : true
         }
       ],
       "runtime": [
