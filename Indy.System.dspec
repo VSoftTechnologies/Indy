@@ -1,0 +1,150 @@
+{
+  "metadata": {
+    "id": "Indy.System",
+    "version": "10.2.0",
+    "description": "Indy Sockets System",
+    "authors": "Indy Pit Crew",
+    "projectUrl": "https://github.com/IndySockets/Indy",
+    "license": "MPL-1.1",
+    "copyright": "Chad Z. Hower (Kudzu) and the Indy Pit Crew",
+    "tags": "Sockets, HTTP, SMTP, FTP, SSL"
+  },
+  "targetPlatforms": [
+    {
+      "compiler": "XE2",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "XE3",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "XE4",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "XE5",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "XE6",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "XE7",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "XE8",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "10.0",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "10.1",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "10.2",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "10.3",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    }
+  ],
+  "templates": [
+    {
+      "name": "default",
+      "source": [
+        {
+          "src": ".\\Lib\\System\\*.pas",
+          "dest": "src"
+        },
+        {
+          "src": ".\\Lib\\System\\*.res",
+          "dest": "src"
+        },
+        {
+          "src": ".\\Lib\\System\\*.inc",
+          "dest": "src"
+        },
+        {
+          "src": ".\\Lib\\System\\Res\\*.res",
+          "dest": "src\res"
+        },
+        {
+          "src": ".\\Lib\\System\\IndySystem$libsuffix$.dpk",
+          "dest": "src"
+        },
+        {
+          "src": ".\\Lib\\System\\IndySystem$libsuffix$.dproj",
+          "dest": "src"
+        }
+      ],
+      "lib": [
+        {
+          "src": "\\lib\\$compiler$\\$platform$\\lib",
+          "dest": "lib",
+          "ignore": true,
+          "comment": "ingore means don't bomb if folder does not `ex`ist"
+        }
+      ],
+      "searchPaths": [
+        {
+          "path": "src",
+          "source": true
+        },
+        {
+          "path": "lib",
+          "source": false
+        }
+      ],
+      "build": [
+        {
+          "id": "IndySystem",
+          "project": ".\\Lib\\System\\IndySystem$libsuffix$.dproj",
+          "keepBin": true,
+          "bplOutputDir": "rtl",
+          "dcpOutputDir": "lib",
+          "dcuOutputDir": "lib"
+        },
+        {
+          "id": "dclIndySystem",
+          "project": ".\\Lib\\System\\dclIndySystem$libsuffix$.dproj",
+          "keepBin": true,
+          "bplOutputDir": "rtl",
+          "dcpOutputDir": "lib",
+          "dcuOutputDir": "lib"
+        }
+      ],
+      "runtime": [
+        {
+          "buildId": "IndySystem",
+          "src": ".\\rtl\\IndySystem$compilerVersion$.bpl",
+          "dest": "rtl"
+        }
+      ],
+      "design": [
+        {
+          "buildId": "dclIndySystem",
+          "src": ".\\rtl\\dclIndySystem$compilerVersion$.bpl",
+          "dest": "rtl"
+        }
+      ]
+    }
+  ]
+}

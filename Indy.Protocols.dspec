@@ -1,0 +1,156 @@
+{
+  "metadata": {
+    "id": "Indy.Protocols",
+    "version": "10.2.0",
+    "description": "Indy Sockets Protocols",
+    "authors": "Indy Pit Crew",
+    "projectUrl": "https://github.com/IndySockets/Indy",
+    "license": "MPL-1.1",
+    "copyright": "Chad Z. Hower (Kudzu) and the Indy Pit Crew",
+    "tags": "Sockets, HTTP, SMTP, FTP, SSL"
+  },
+  "targetPlatforms": [
+    {
+      "compiler": "XE2",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "XE3",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "XE4",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "XE5",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "XE6",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "XE7",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "XE8",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "10.0",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "10.1",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "10.2",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    },
+    {
+      "compiler": "10.3",
+      "platforms": "Win32, Win64",
+      "template": "default"
+    }
+  ],
+  "templates": [
+    {
+      "name": "default",
+      "dependencies": [
+        {
+          "id": "Indy.System",
+          "version": "$version$",
+          "comment": "using the same version as this package, since they are usually all released together"
+        },
+        {
+          "id": "Indy.Core",
+          "version": "$version$"
+        }
+      ],
+      "source": [
+        {
+          "src": ".\\Lib\\Protocols\\*.pas",
+          "dest": "src"
+        },
+        {
+          "src": ".\\Lib\\Protocols\\Res\\*.res",
+          "dest": "src\res"
+        },
+        {
+          "src": ".\\Lib\\Protocols\\IndyProtocols{libsuffix}.dpr*",
+          "dest": "src"
+        },
+        {
+          "src": ".\\Lib\\Protocols\\dclIndyProtocols{libsuffix}.dpr*",
+          "dest": "src"
+        }
+      ],
+      "lib": [
+        {
+          "src": "\\lib\\{compiler}\\{platform}\\lib",
+          "dest": "lib",
+          "ignore": true,
+          "comment": "ingore means don't bomb if folder does not exist"
+        }
+      ],
+      "searchPaths": [
+        {
+          "path": "src",
+          "source": true
+        },
+        {
+          "path": "lib",
+          "source": false
+        }
+      ],
+      "build": [
+        {
+          "id": "IndyProtocols",
+          "project": ".\\Lib\\Protocols\\IndyProtocols{libsuffix}.dproj",
+          "config": "release",
+          "keepBin": true,
+          "bplOutputDir": "rtl",
+          "dcpOutputDir": "lib",
+          "dcuOutputDir": "lib"
+        },
+        {
+          "id": "dclIndyProtocols",
+          "project": ".\\Lib\\Protocols\\dclIndyProtocols{libsuffix}.dproj",
+          "config": "release",
+          "keepBin": true,
+          "bplOutputDir": "rtl",
+          "dcpOutputDir": "lib",
+          "dcuOutputDir": "lib"
+        }
+      ],
+      "runtime": [
+        {
+          "buildId": "IndyProtocols",
+          "src": ".\\rtl\\IndyProtocols{compilerVersion}.bpl",
+          "preCompiled": false
+        }
+      ],
+      "design": [
+        {
+          "buildId": "dclIndyProtocols",
+          "src": ".\\rtl\\dclIndyProtocols{compilerVersion}.bpl",
+          "install": true,
+          "preCompiled": false
+        }
+      ]
+    }
+  ]
+}
