@@ -1,0 +1,167 @@
+{
+ "metadata": {
+  "id": "Indy.Core",
+  "version": "11.0.0-alpha.1",
+  "description": "Indy Sockets Core",
+  "authors": "Indy Pit Crew",
+  "projectUrl": "https://github.com/IndySockets/Indy",
+  "repositoryUrl": "https://github.com/IndySockets/Indy",
+  "license": "MPL-1.1",
+  "copyright": "Chad Z. Hower (Kudzu) and the Indy Pit Crew",
+  "tags": "Sockets, HTTP, SMTP, FTP, SSL"
+ },
+ "targetPlatforms": [
+  {
+   "compiler": "XE2",
+   "platforms": "Win32, Win64, OSX32",
+   "template": "default"
+  },
+  {
+   "compiler": "XE3",
+   "platforms": "Win32, Win64, OSX32",
+   "template": "default"
+  },
+  {
+   "compiler": "XE4",
+   "platforms": "Win32, Win64, OSX32, iOS32, iOSSimulator",
+   "template": "default"
+  },
+  {
+   "compiler": "XE5",
+   "platforms": "Win32, Win64, OSX32, Android, iOS32, iOSSimulator",
+   "template": "default"
+  },
+  {
+   "compiler": "XE6",
+   "platforms": "Win32, Win64, OSX32, Android, iOS32, iOSSimulator",
+   "template": "default"
+  },
+  {
+   "compiler": "XE7",
+   "platforms": "Win32, Win64, OSX32, Android, iOS32, iOSSimulator",
+   "template": "default"
+  },
+  {
+   "compiler": "XE8",
+   "platforms": "Win32, Win64, OSX32, Android, iOS32, iOS64, iOSSimulator",
+   "template": "default"
+  },
+  {
+   "compiler": "10.0",
+   "platforms": "Win32, Win64, OSX32, Android, iOS32, iOS64, iOSSimulator",
+   "template": "default"
+  },
+  {
+   "compiler": "10.1",
+   "platforms": "Win32, Win64, OSX32, Android, iOS32, iOS64, iOSSimulator",
+   "template": "default"
+  },
+  {
+   "compiler": "10.2",
+   "platforms": "Win32, Win64, OSX32, Android, iOS32, iOS64, iOSSimulator",
+   "template": "default"
+  },
+  {
+   "compiler": "10.4",
+   "platforms": "Win32, Win64, OSX64, Android, Android64, iOS64, iOSSimulator, LinuxIntel64",
+   "template": "default"
+  },
+  {
+   "compiler": "11.0",
+   "platforms": "Win32, Win64, OSX64, OSXARM64, Android, Android64, iOS64, LinuxIntel64",
+   "template": "default"
+  },
+  {
+   "compiler": "12.0",
+   "platforms": "Win32, Win64, OSX64, OSXARM64, Android, Android64, iOS64, LinuxIntel64",
+   "template": "default"
+  },
+  {
+   "compiler": "10.3",
+   "platforms": "Win32, Win64, OSX32, OSX64, Android, Android64, iOS32, iOS64, iOSSimulator, LinuxIntel64",
+   "template": "default"
+  }
+ ],
+ "templates": [
+  {
+   "name": "default",
+   "dependencies": [
+    {
+     "id": "Indy.System",
+     "version": "11.0.0-alpha.1"
+    }
+   ],
+   "source": [
+    {
+     "src": "..\\Core\\*.pas",
+     "dest": "src\\Core"
+    },
+    {
+     "src": "..\\Core\\*.inc",
+     "dest": "src\\Core"
+    },
+    {
+     "src": "..\\IdCompilerDefines.inc",
+     "dest": "src\\Core"
+    },
+    {
+     "src": "..\\Core\\IdAboutVCL.res",
+     "dest": "src\\Core"
+    },
+    {
+     "src": "..\\Core\\*.dcr",
+     "dest": "src\\Core"
+    },
+    {
+     "src": "..\\Core\\Res\\*.res",
+     "dest": "src\\Core\\res"
+    },
+    {
+     "src": "..\\Packages\\RAD Studio $compilerWithCodeName$\\*IndyCore.*",
+     "dest": "src\\Packages\\RAD Studio $compilerWithCodeName$",
+     "exclude": [
+      "*.local"
+     ]
+    }
+   ],
+   "searchPaths": [
+    {
+     "path": "src\\core"
+    }
+   ],
+   "build": [
+    {
+     "id": "IndyCore",
+     "project": "src\\Packages\\$compilerWithCodeName$\\IndyCore.dproj",
+     "config": "Release"
+    },
+    {
+     "id": "dclIndyCore",
+     "project": "src\\Packages\\$compilerWithCodeName$\\dclIndyCore.dproj",
+     "designOnly": true,
+     "config": "Release"
+    }
+   ],
+   "design": [
+    {
+     "buildId": "dclIndyCore",
+     "src": ".\\bin\\dclIndyCore.bpl",
+     "install": true
+    }
+   ],
+   "runtime": [
+    {
+     "buildId": "IndyCore",
+     "src": ".\\bin\\IndyCore.bpl"
+    }
+   ],
+   "lib": [
+    {
+     "src": ".\\lib\\$compiler$\\$platform$\\lib",
+     "dest": "lib",
+     "ignore": true
+    }
+   ]
+  }
+ ]
+}
