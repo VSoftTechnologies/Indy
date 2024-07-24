@@ -1,0 +1,304 @@
+package IndyProtocols;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$DEFINE VER360}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'Indy 11 Protocols'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+{$LIBSUFFIX '170'}
+
+// RLebeau: cannot use IdCompilerDefines.inc here!
+
+{$DEFINE HAS_PKG_RTL}
+{$IFDEF NEXTGEN}
+  {$IFDEF IOS}
+    // there is no RTL package available for iOS
+    {$UNDEF HAS_PKG_RTL}
+  {$ENDIF}
+{$ENDIF}
+
+requires
+  {$IFDEF HAS_PKG_RTL}
+  rtl,
+  {$ENDIF}
+  IndySystem,
+  IndyCore;
+
+{$IFNDEF WINDOWS}
+  {$IFDEF MSWINDOWS}
+    {$DEFINE WINDOWS}
+  {$ENDIF}
+{$ENDIF}
+
+contains
+  IdASN1Util in '..\..\Protocols\IdASN1Util.pas',
+  IdAllAuthentications in '..\..\Protocols\IdAllAuthentications.pas',
+  IdAllFTPListParsers in '..\..\Protocols\IdAllFTPListParsers.pas',
+  IdAllHeaderCoders in '..\..\Protocols\IdAllHeaderCoders.pas',
+  IdAttachment in '..\..\Protocols\IdAttachment.pas',
+  IdAttachmentFile in '..\..\Protocols\IdAttachmentFile.pas',
+  IdAttachmentMemory in '..\..\Protocols\IdAttachmentMemory.pas',
+  IdAuthentication in '..\..\Protocols\IdAuthentication.pas',
+  IdAuthenticationDigest in '..\..\Protocols\IdAuthenticationDigest.pas',
+  IdAuthenticationManager in '..\..\Protocols\IdAuthenticationManager.pas',
+  IdAuthenticationNTLM in '..\..\Protocols\IdAuthenticationNTLM.pas',
+  {$IFDEF WINDOWS}
+  IdAuthenticationSSPI in '..\..\Protocols\IdAuthenticationSSPI.pas',
+  {$ENDIF}
+  IdBlockCipherIntercept in '..\..\Protocols\IdBlockCipherIntercept.pas',
+  IdChargenServer in '..\..\Protocols\IdChargenServer.pas',
+  IdChargenUDPServer in '..\..\Protocols\IdChargenUDPServer.pas',
+  IdCharsets in '..\..\Protocols\IdCharsets.pas',
+  IdCoder in '..\..\Protocols\IdCoder.pas',
+  IdCoder00E in '..\..\Protocols\IdCoder00E.pas',
+  IdCoder3to4 in '..\..\Protocols\IdCoder3to4.pas',
+  IdCoderBinHex4 in '..\..\Protocols\IdCoderBinHex4.pas',
+  IdCoderHeader in '..\..\Protocols\IdCoderHeader.pas',
+  IdCoderMIME in '..\..\Protocols\IdCoderMIME.pas',
+  IdCoderQuotedPrintable in '..\..\Protocols\IdCoderQuotedPrintable.pas',
+  IdCoderUUE in '..\..\Protocols\IdCoderUUE.pas',
+  IdCoderXXE in '..\..\Protocols\IdCoderXXE.pas',
+  IdCompressionIntercept in '..\..\Protocols\IdCompressionIntercept.pas',
+  IdCompressorZLib in '..\..\Protocols\IdCompressorZLib.pas',
+  IdConnectThroughHttpProxy in '..\..\Protocols\IdConnectThroughHttpProxy.pas',
+  IdContainers in '..\..\Protocols\IdContainers.pas',
+  IdCookie in '..\..\Protocols\IdCookie.pas',
+  IdCookieManager in '..\..\Protocols\IdCookieManager.pas',
+  IdCustomHTTPServer in '..\..\Protocols\IdCustomHTTPServer.pas',
+  IdDICT in '..\..\Protocols\IdDICT.pas',
+  IdDICTCommon in '..\..\Protocols\IdDICTCommon.pas',
+  IdDICTServer in '..\..\Protocols\IdDICTServer.pas',
+  IdDNSCommon in '..\..\Protocols\IdDNSCommon.pas',
+  IdDNSResolver in '..\..\Protocols\IdDNSResolver.pas',
+  IdDNSServer in '..\..\Protocols\IdDNSServer.pas',
+  IdDateTimeStamp in '..\..\Protocols\IdDateTimeStamp.pas',
+  IdDayTime in '..\..\Protocols\IdDayTime.pas',
+  IdDayTimeServer in '..\..\Protocols\IdDayTimeServer.pas',
+  IdDayTimeUDP in '..\..\Protocols\IdDayTimeUDP.pas',
+  IdDayTimeUDPServer in '..\..\Protocols\IdDayTimeUDPServer.pas',
+  IdDiscardServer in '..\..\Protocols\IdDiscardServer.pas',
+  IdDiscardUDPServer in '..\..\Protocols\IdDiscardUDPServer.pas',
+  IdEMailAddress in '..\..\Protocols\IdEMailAddress.pas',
+  IdEcho in '..\..\Protocols\IdEcho.pas',
+  IdEchoServer in '..\..\Protocols\IdEchoServer.pas',
+  IdEchoUDP in '..\..\Protocols\IdEchoUDP.pas',
+  IdEchoUDPServer in '..\..\Protocols\IdEchoUDPServer.pas',
+  IdExplicitTLSClientServerBase in '..\..\Protocols\IdExplicitTLSClientServerBase.pas',
+  IdFIPS in '..\..\Protocols\IdFIPS.pas',
+  IdFSP in '..\..\Protocols\IdFSP.pas',
+  IdFTP in '..\..\Protocols\IdFTP.pas',
+  IdFTPBaseFileSystem in '..\..\Protocols\IdFTPBaseFileSystem.pas',
+  IdFTPCommon in '..\..\Protocols\IdFTPCommon.pas',
+  IdFTPList in '..\..\Protocols\IdFTPList.pas',
+  IdFTPListOutput in '..\..\Protocols\IdFTPListOutput.pas',
+  IdFTPListParseAS400 in '..\..\Protocols\IdFTPListParseAS400.pas',
+  IdFTPListParseBase in '..\..\Protocols\IdFTPListParseBase.pas',
+  IdFTPListParseBullGCOS7 in '..\..\Protocols\IdFTPListParseBullGCOS7.pas',
+  IdFTPListParseBullGCOS8 in '..\..\Protocols\IdFTPListParseBullGCOS8.pas',
+  IdFTPListParseChameleonNewt in '..\..\Protocols\IdFTPListParseChameleonNewt.pas',
+  IdFTPListParseCiscoIOS in '..\..\Protocols\IdFTPListParseCiscoIOS.pas',
+  IdFTPListParseDistinctTCPIP in '..\..\Protocols\IdFTPListParseDistinctTCPIP.pas',
+  IdFTPListParseEPLF in '..\..\Protocols\IdFTPListParseEPLF.pas',
+  IdFTPListParseHellSoft in '..\..\Protocols\IdFTPListParseHellSoft.pas',
+  IdFTPListParseIEFTPGateway in '..\..\Protocols\IdFTPListParseIEFTPGateway.pas',
+  IdFTPListParseKA9Q in '..\..\Protocols\IdFTPListParseKA9Q.pas',
+  IdFTPListParseMPEiX in '..\..\Protocols\IdFTPListParseMPEiX.pas',
+  IdFTPListParseMVS in '..\..\Protocols\IdFTPListParseMVS.pas',
+  IdFTPListParseMicrowareOS9 in '..\..\Protocols\IdFTPListParseMicrowareOS9.pas',
+  IdFTPListParseMusic in '..\..\Protocols\IdFTPListParseMusic.pas',
+  IdFTPListParseNCSAForDOS in '..\..\Protocols\IdFTPListParseNCSAForDOS.pas',
+  IdFTPListParseNCSAForMACOS in '..\..\Protocols\IdFTPListParseNCSAForMACOS.pas',
+  IdFTPListParseNovellNetware in '..\..\Protocols\IdFTPListParseNovellNetware.pas',
+  IdFTPListParseNovellNetwarePSU in '..\..\Protocols\IdFTPListParseNovellNetwarePSU.pas',
+  IdFTPListParseOS2 in '..\..\Protocols\IdFTPListParseOS2.pas',
+  IdFTPListParsePCNFSD in '..\..\Protocols\IdFTPListParsePCNFSD.pas',
+  IdFTPListParsePCTCP in '..\..\Protocols\IdFTPListParsePCTCP.pas',
+  IdFTPListParseStercomOS390Exp in '..\..\Protocols\IdFTPListParseStercomOS390Exp.pas',
+  IdFTPListParseStercomUnixEnt in '..\..\Protocols\IdFTPListParseStercomUnixEnt.pas',
+  IdFTPListParseStratusVOS in '..\..\Protocols\IdFTPListParseStratusVOS.pas',
+  IdFTPListParseSuperTCP in '..\..\Protocols\IdFTPListParseSuperTCP.pas',
+  IdFTPListParseTOPS20 in '..\..\Protocols\IdFTPListParseTOPS20.pas',
+  IdFTPListParseTSXPlus in '..\..\Protocols\IdFTPListParseTSXPlus.pas',
+  IdFTPListParseTandemGuardian in '..\..\Protocols\IdFTPListParseTandemGuardian.pas',
+  IdFTPListParseUnisysClearPath in '..\..\Protocols\IdFTPListParseUnisysClearPath.pas',
+  IdFTPListParseUnix in '..\..\Protocols\IdFTPListParseUnix.pas',
+  IdFTPListParseVM in '..\..\Protocols\IdFTPListParseVM.pas',
+  IdFTPListParseVMS in '..\..\Protocols\IdFTPListParseVMS.pas',
+  IdFTPListParseVSE in '..\..\Protocols\IdFTPListParseVSE.pas',
+  IdFTPListParseVxWorks in '..\..\Protocols\IdFTPListParseVxWorks.pas',
+  IdFTPListParseWfFTP in '..\..\Protocols\IdFTPListParseWfFTP.pas',
+  IdFTPListParseWinQVTNET in '..\..\Protocols\IdFTPListParseWinQVTNET.pas',
+  IdFTPListParseWindowsNT in '..\..\Protocols\IdFTPListParseWindowsNT.pas',
+  IdFTPListParseXecomMicroRTOS in '..\..\Protocols\IdFTPListParseXecomMicroRTOS.pas',
+  IdFTPListTypes in '..\..\Protocols\IdFTPListTypes.pas',
+  IdFTPServer in '..\..\Protocols\IdFTPServer.pas',
+  IdFTPServerContextBase in '..\..\Protocols\IdFTPServerContextBase.pas',
+  IdFinger in '..\..\Protocols\IdFinger.pas',
+  IdFingerServer in '..\..\Protocols\IdFingerServer.pas',
+  IdGlobalProtocols in '..\..\Protocols\IdGlobalProtocols.pas',
+  IdGopher in '..\..\Protocols\IdGopher.pas',
+  IdGopherConsts in '..\..\Protocols\IdGopherConsts.pas',
+  IdGopherServer in '..\..\Protocols\IdGopherServer.pas',
+  IdHL7 in '..\..\Protocols\IdHL7.pas',
+  IdHMAC in '..\..\Protocols\IdHMAC.pas',
+  IdHMACMD5 in '..\..\Protocols\IdHMACMD5.pas',
+  IdHMACSHA1 in '..\..\Protocols\IdHMACSHA1.pas',
+  IdHTTP in '..\..\Protocols\IdHTTP.pas',
+  IdHTTPHeaderInfo in '..\..\Protocols\IdHTTPHeaderInfo.pas',
+  IdHTTPProxyServer in '..\..\Protocols\IdHTTPProxyServer.pas',
+  IdHTTPServer in '..\..\Protocols\IdHTTPServer.pas',
+  IdHash in '..\..\Protocols\IdHash.pas',
+  IdHashCRC in '..\..\Protocols\IdHashCRC.pas',
+  IdHashElf in '..\..\Protocols\IdHashElf.pas',
+  IdHashMessageDigest in '..\..\Protocols\IdHashMessageDigest.pas',
+  IdHashSHA in '..\..\Protocols\IdHashSHA.pas',
+  IdHeaderCoder2022JP in '..\..\Protocols\IdHeaderCoder2022JP.pas',
+  IdHeaderCoderBase in '..\..\Protocols\IdHeaderCoderBase.pas',
+  IdHeaderCoderIndy in '..\..\Protocols\IdHeaderCoderIndy.pas',
+  IdHeaderCoderPlain in '..\..\Protocols\IdHeaderCoderPlain.pas',
+  IdHeaderList in '..\..\Protocols\IdHeaderList.pas',
+  IdIMAP4 in '..\..\Protocols\IdIMAP4.pas',
+  IdIMAP4Server in '..\..\Protocols\IdIMAP4Server.pas',
+  IdIPAddrMon in '..\..\Protocols\IdIPAddrMon.pas',
+  IdIPWatch in '..\..\Protocols\IdIPWatch.pas',
+  IdIRC in '..\..\Protocols\IdIRC.pas',
+  IdIdent in '..\..\Protocols\IdIdent.pas',
+  IdIdentServer in '..\..\Protocols\IdIdentServer.pas',
+  IdIrcServer in '..\..\Protocols\IdIrcServer.pas',
+  IdLPR in '..\..\Protocols\IdLPR.pas',
+  IdMailBox in '..\..\Protocols\IdMailBox.pas',
+  IdMappedFTP in '..\..\Protocols\IdMappedFTP.pas',
+  IdMappedPOP3 in '..\..\Protocols\IdMappedPOP3.pas',
+  IdMappedPortTCP in '..\..\Protocols\IdMappedPortTCP.pas',
+  IdMappedPortUDP in '..\..\Protocols\IdMappedPortUDP.pas',
+  IdMappedTelnet in '..\..\Protocols\IdMappedTelnet.pas',
+  IdMessage in '..\..\Protocols\IdMessage.pas',
+  IdMessageBuilder in '..\..\Protocols\IdMessageBuilder.pas',
+  IdMessageClient in '..\..\Protocols\IdMessageClient.pas',
+  IdMessageCoder in '..\..\Protocols\IdMessageCoder.pas',
+  IdMessageCoderBinHex4 in '..\..\Protocols\IdMessageCoderBinHex4.pas',
+  IdMessageCoderMIME in '..\..\Protocols\IdMessageCoderMIME.pas',
+  IdMessageCoderQuotedPrintable in '..\..\Protocols\IdMessageCoderQuotedPrintable.pas',
+  IdMessageCoderUUE in '..\..\Protocols\IdMessageCoderUUE.pas',
+  IdMessageCoderXXE in '..\..\Protocols\IdMessageCoderXXE.pas',
+  IdMessageCoderYenc in '..\..\Protocols\IdMessageCoderYenc.pas',
+  IdMessageCollection in '..\..\Protocols\IdMessageCollection.pas',
+  IdMessageHelper in '..\..\Protocols\IdMessageHelper.pas',
+  IdMessageParts in '..\..\Protocols\IdMessageParts.pas',
+  IdMultipartFormData in '..\..\Protocols\IdMultipartFormData.pas',
+  IdNNTP in '..\..\Protocols\IdNNTP.pas',
+  IdNNTPServer in '..\..\Protocols\IdNNTPServer.pas',
+  IdNTLM in '..\..\Protocols\IdNTLM.pas',
+  IdNetworkCalculator in '..\..\Protocols\IdNetworkCalculator.pas',
+  IdOSFileName in '..\..\Protocols\IdOSFileName.pas',
+  IdOTPCalculator in '..\..\Protocols\IdOTPCalculator.pas',
+  IdPOP3 in '..\..\Protocols\IdPOP3.pas',
+  IdPOP3Server in '..\..\Protocols\IdPOP3Server.pas',
+  IdQOTDUDP in '..\..\Protocols\IdQOTDUDP.pas',
+  IdQOTDUDPServer in '..\..\Protocols\IdQOTDUDPServer.pas',
+  IdQotd in '..\..\Protocols\IdQotd.pas',
+  IdQotdServer in '..\..\Protocols\IdQotdServer.pas',
+  IdRSH in '..\..\Protocols\IdRSH.pas',
+  IdRSHServer in '..\..\Protocols\IdRSHServer.pas',
+  IdRemoteCMDClient in '..\..\Protocols\IdRemoteCMDClient.pas',
+  IdRemoteCMDServer in '..\..\Protocols\IdRemoteCMDServer.pas',
+  IdReplyFTP in '..\..\Protocols\IdReplyFTP.pas',
+  IdReplyIMAP4 in '..\..\Protocols\IdReplyIMAP4.pas',
+  IdReplyPOP3 in '..\..\Protocols\IdReplyPOP3.pas',
+  IdReplySMTP in '..\..\Protocols\IdReplySMTP.pas',
+  IdResourceStringsOpenSSL in '..\..\Protocols\IdResourceStringsOpenSSL.pas',
+  IdResourceStringsProtocols in '..\..\Protocols\IdResourceStringsProtocols.pas',
+  IdResourceStringsSSPI in '..\..\Protocols\IdResourceStringsSSPI.pas',
+  IdResourceStringsUriUtils in '..\..\Protocols\IdResourceStringsUriUtils.pas',
+  IdRexec in '..\..\Protocols\IdRexec.pas',
+  IdRexecServer in '..\..\Protocols\IdRexecServer.pas',
+  IdSASL in '..\..\Protocols\IdSASL.pas',
+  IdSASLAnonymous in '..\..\Protocols\IdSASLAnonymous.pas',
+  IdSASLCollection in '..\..\Protocols\IdSASLCollection.pas',
+  IdSASLDigest in '..\..\Protocols\IdSASLDigest.pas',
+  IdSASLExternal in '..\..\Protocols\IdSASLExternal.pas',
+  IdSASLLogin in '..\..\Protocols\IdSASLLogin.pas',
+  IdSASLOTP in '..\..\Protocols\IdSASLOTP.pas',
+  IdSASLPlain in '..\..\Protocols\IdSASLPlain.pas',
+  IdSASLSKey in '..\..\Protocols\IdSASLSKey.pas',
+  IdSASLUserPass in '..\..\Protocols\IdSASLUserPass.pas',
+  IdSASL_CRAMBase in '..\..\Protocols\IdSASL_CRAMBase.pas',
+  IdSASL_CRAM_MD5 in '..\..\Protocols\IdSASL_CRAM_MD5.pas',
+  IdSASL_CRAM_SHA1 in '..\..\Protocols\IdSASL_CRAM_SHA1.pas',
+  IdSMTP in '..\..\Protocols\IdSMTP.pas',
+  IdSMTPBase in '..\..\Protocols\IdSMTPBase.pas',
+  IdSMTPRelay in '..\..\Protocols\IdSMTPRelay.pas',
+  IdSMTPServer in '..\..\Protocols\IdSMTPServer.pas',
+  IdSNMP in '..\..\Protocols\IdSNMP.pas',
+  IdSNPP in '..\..\Protocols\IdSNPP.pas',
+  IdSNTP in '..\..\Protocols\IdSNTP.pas',
+  IdSSL in '..\..\Protocols\IdSSL.pas',
+  IdSSLOpenSSL in '..\..\Protocols\IdSSLOpenSSL.pas',
+  IdSSLOpenSSLHeaders in '..\..\Protocols\IdSSLOpenSSLHeaders.pas',
+  {$IFDEF WINDOWS}
+  IdSSPI in '..\..\Protocols\IdSSPI.pas',
+  {$ENDIF}
+  IdServerInterceptLogBase in '..\..\Protocols\IdServerInterceptLogBase.pas',
+  IdServerInterceptLogEvent in '..\..\Protocols\IdServerInterceptLogEvent.pas',
+  IdServerInterceptLogFile in '..\..\Protocols\IdServerInterceptLogFile.pas',
+  IdSocksServer in '..\..\Protocols\IdSocksServer.pas',
+  IdStrings in '..\..\Protocols\IdStrings.pas',
+  IdSysLog in '..\..\Protocols\IdSysLog.pas',
+  IdSysLogMessage in '..\..\Protocols\IdSysLogMessage.pas',
+  IdSysLogServer in '..\..\Protocols\IdSysLogServer.pas',
+  IdSystat in '..\..\Protocols\IdSystat.pas',
+  IdSystatServer in '..\..\Protocols\IdSystatServer.pas',
+  IdSystatUDP in '..\..\Protocols\IdSystatUDP.pas',
+  IdSystatUDPServer in '..\..\Protocols\IdSystatUDPServer.pas',
+  IdTelnet in '..\..\Protocols\IdTelnet.pas',
+  IdTelnetServer in '..\..\Protocols\IdTelnetServer.pas',
+  IdText in '..\..\Protocols\IdText.pas',
+  IdTime in '..\..\Protocols\IdTime.pas',
+  IdTimeServer in '..\..\Protocols\IdTimeServer.pas',
+  IdTimeUDP in '..\..\Protocols\IdTimeUDP.pas',
+  IdTimeUDPServer in '..\..\Protocols\IdTimeUDPServer.pas',
+  IdTrivialFTP in '..\..\Protocols\IdTrivialFTP.pas',
+  IdTrivialFTPBase in '..\..\Protocols\IdTrivialFTPBase.pas',
+  IdTrivialFTPServer in '..\..\Protocols\IdTrivialFTPServer.pas',
+  IdURI in '..\..\Protocols\IdURI.pas',
+  IdUnixTime in '..\..\Protocols\IdUnixTime.pas',
+  IdUnixTimeServer in '..\..\Protocols\IdUnixTimeServer.pas',
+  IdUnixTimeUDP in '..\..\Protocols\IdUnixTimeUDP.pas',
+  IdUnixTimeUDPServer in '..\..\Protocols\IdUnixTimeUDPServer.pas',
+  IdUriUtils in '..\..\Protocols\IdUriUtils.pas',
+  IdUserAccounts in '..\..\Protocols\IdUserAccounts.pas',
+  IdUserPassProvider in '..\..\Protocols\IdUserPassProvider.pas',
+  IdVCard in '..\..\Protocols\IdVCard.pas',
+  IdWebDAV in '..\..\Protocols\IdWebDAV.pas',
+  IdWhoIsServer in '..\..\Protocols\IdWhoIsServer.pas',
+  IdWhois in '..\..\Protocols\IdWhois.pas',
+  IdZLib in '..\..\Protocols\IdZLib.pas',
+  IdZLibCompressorBase in '..\..\Protocols\IdZLibCompressorBase.pas',
+  IdZLibConst in '..\..\Protocols\IdZLibConst.pas',
+  IdZLibHeaders in '..\..\Protocols\IdZLibHeaders.pas';
+
+end.
