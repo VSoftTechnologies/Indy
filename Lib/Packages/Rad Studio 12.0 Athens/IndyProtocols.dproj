@@ -7,7 +7,7 @@
 			<TargetedPlatforms>7</TargetedPlatforms>
 			<AppType>Package</AppType>
 			<FrameworkType>None</FrameworkType>
-			<ProjectVersion>13.4</ProjectVersion>
+			<ProjectVersion>12.3</ProjectVersion>
 			<Platform Condition="'$(Platform)'==''">Win32</Platform>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">

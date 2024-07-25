@@ -1,0 +1,85 @@
+package IndySystem;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'Indy 11 System'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+{$LIBSUFFIX '140'}
+
+// RLebeau: cannot use IdCompilerDefines.inc here!
+
+{$DEFINE HAS_PKG_RTL}
+{$IFDEF NEXTGEN}
+  {$IFDEF IOS}
+    // there is no RTL package available for iOS
+    {$UNDEF HAS_PKG_RTL}
+  {$ENDIF}
+{$ENDIF}
+
+{$IFDEF HAS_PKG_RTL}
+requires
+  rtl;
+{$ENDIF}
+
+{$IFNDEF WINDOWS}
+  {$IFDEF MSWINDOWS}
+    {$DEFINE WINDOWS}
+  {$ENDIF}
+{$ENDIF}
+
+contains
+  IdAntiFreezeBase in '..\..\System\IdAntiFreezeBase.pas',
+  IdBaseComponent in '..\..\System\IdBaseComponent.pas',
+  IdCTypes in '..\..\System\IdCTypes.pas',
+  IdComponent in '..\..\System\IdComponent.pas',
+  IdException in '..\..\System\IdException.pas',
+  IdGlobal in '..\..\System\IdGlobal.pas',
+  IdIDN in '..\..\System\IdIDN.pas',
+  IdResourceStrings in '..\..\System\IdResourceStrings.pas',
+  {$IFNDEF WINDOWS}
+  IdResourceStringsUnix in '..\..\System\IdResourceStringsUnix.pas',
+  IdResourceStringsVCLPosix in '..\..\System\IdResourceStringsVCLPosix.pas',
+  {$ENDIF}
+  IdStack in '..\..\System\IdStack.pas',
+  IdStackBSDBase in '..\..\System\IdStackBSDBase.pas',
+  IdStackConsts in '..\..\System\IdStackConsts.pas',
+  {$IFDEF WINDOWS}
+  IdStackWindows in '..\..\System\IdStackWindows.pas',
+  {$ELSE}
+  IdStackVCLPosix in '..\..\System\IdStackVCLPosix.pas',
+  {$ENDIF}
+  IdStream in '..\..\System\IdStream.pas',
+  IdStreamVCL in '..\..\System\IdStreamVCL.pas',
+  IdStruct in '..\..\System\IdStruct.pas',
+  {$IFDEF WINDOWS}
+  IdWinsock2 in '..\..\System\IdWinsock2.pas',
+  IdWship6 in '..\..\System\IdWship6.pas'
+  {$ELSE}
+  IdVCLPosixSupplemental in '..\..\System\IdVCLPosixSupplemental.pas'
+  {$ENDIF}
+  ;
+
+end.

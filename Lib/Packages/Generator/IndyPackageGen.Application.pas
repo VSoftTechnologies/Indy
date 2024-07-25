@@ -105,8 +105,12 @@ begin
   for var template in templates do
   begin
     try
-//      var processed := template.Value.Replace('%MAJORVER%', IntToStr(FMajorVer),[rfIgnoreCase]);
-//      processed := processed.Replace('%LIBSUFFIX%', compilerVersion.LibSuffix,[rfIgnoreCase]);
+      var ext := TPath.GetExtension(template.Key);
+      if SameText(ext,'.dproj') and compilerVersion.NoGenDproj then
+        continue;
+      if SameText(ext,'.groupproj') and compilerVersion.NoGenGroupProj then
+        continue;    
+    
       var processed := ProcessStringForVersion(compilerVersion, template.Value);
 
       var outputFileName := TPath.Combine(FPackagesRoot, compilerVersion.PackageFolder);
@@ -128,7 +132,6 @@ class function TPackageGenApplication.Run(const version : TSemanticVersion; cons
 var
   iniFile : TIniFile;
 begin
-  result := EXIT_OK;
   WriteLn('Reading inifile : ' + iniFilePath);
   FSemantiVersion := version;
 
@@ -199,6 +202,8 @@ begin
         compilerVersion.Version := compilerVersionNames.Strings[i];
         compilerVersion.PackageFolder := iniFile.ReadString('compilerVersions', compilerVersionNames.Strings[i],'');
         compilerVersion.LibSuffix := iniFile.ReadString(compilerVersionNames.Strings[i], 'LIBSUFFIX','');
+        compilerVersion.NoGenDproj := iniFile.ReadBool(compilerVersionNames.Strings[i], 'NoGenDProj', false);
+        compilerVersion.NoGenGroupProj := iniFile.ReadBool(compilerVersionNames.Strings[i], 'NoGenGroupProj', false);
         FCompilerVersions.Add(compilerVersion);
       end;
     finally
@@ -230,7 +235,8 @@ begin
     end;
     result := ProcessIncFiles(iniFile, templates);
 
-
+    WriteLn('');
+    WriteLn('Done');
   finally
     iniFile.Free;
   end;
