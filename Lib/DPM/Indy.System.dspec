@@ -91,10 +91,6 @@
      "dest": "src\\system"
     },
     {
-     "src": "..\\System\\*.res",
-     "dest": "src\\system"
-    },
-    {
      "src": "..\\System\\*.inc",
      "dest": "src\\system"
     },
