@@ -115,13 +115,15 @@
     {
      "id": "IndySystem",
      "project": ".\\src\\Packages\\RAD Studio $compilerWithCodeName$\\IndySystem.dproj",
-     "config": "Release"
+     "config": "Release",
+     "buildForDesign": true
     }
    ],
    "runtime": [
     {
      "buildId": "IndySystem",
-     "src": ".\\bin\\IndySystem.bpl"
+     "src": ".\\bin\\IndySystem.bpl",
+     "copyLocal": true
     }
    ],
    "lib": [
