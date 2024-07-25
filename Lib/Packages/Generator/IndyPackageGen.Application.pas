@@ -4,6 +4,7 @@ interface
 
 uses
   System.Generics.Collections,
+  System.IniFiles,
   VSoft.SemanticVersion,
   IndyPackageGen.Types;
 
@@ -17,14 +18,15 @@ type
       FPRODUCTVERSION : string;
       FFILEVERSION : string;
       FFILEVERSIONSTRING : string;
-
       FCompilerVersions : TList<TCompilerVersion>;
       FTemplatesFolder : string;
       FPackagesRoot : string;
   protected
+    class function SemverToWindowsBuildVersion(const version : TSemanticVersion) : integer;
     class function SemverToWindowsFileVersion(const version : TSemanticVersion) : string;
     class function ProcessStringForVersion(compilerVersion : TCompilerVersion; const value : string) : string;
     class function ProcessTemplatesForVersion(compilerVersion : TCompilerVersion; const templates : TDictionary<string, string>) : integer;
+    class function ProcessIncFiles(const iniFile : TIniFile; const templates : TDictionary<string, string>) : integer;
 
     class constructor Create;
     class destructor Destroy;
@@ -38,7 +40,6 @@ uses
   System.Classes,
   System.DateUtils,
   System.SysUtils,
-  System.IniFiles,
   System.IOUtils;
 
 
@@ -56,10 +57,38 @@ begin
 end;
 
 //quick n dirty string replacements
+class function TPackageGenApplication.ProcessIncFiles(const iniFile : TIniFile; const templates: TDictionary<string, string>): integer;
+begin
+  result := EXIT_OK;
+
+  //need this for processstring
+  var compilerVersion : TCompilerVersion;
+
+  for var keyPair in templates do
+  begin
+    var outputStr := iniFile.ReadString('incfiles', keyPair.Key,'');
+    if outputStr = '' then
+      continue;
+    var template := keyPair.Value;
+    template := ProcessStringForVersion(compilerVersion, template);
+
+    var outputs := outputStr.Split([';'], TStringSplitOptions.ExcludeEmpty);
+    for var outputFileName in outputs do
+    begin
+      var absoluteOutputFileName := TPath.GetFullPath(outputFileName);
+      TFile.WriteAllText(absoluteOutputFileName, template);
+    end;
+  end;
+
+end;
+
 class function TPackageGenApplication.ProcessStringForVersion(compilerVersion: TCompilerVersion; const value: string): string;
 begin
    result := value.Replace('%DPMCOMPILERVER%', compilerVersion.Version ,[rfIgnoreCase,rfReplaceAll]);
-   result := value.Replace('%MAJORVER%', IntToStr(FSemantiVersion.Major),[rfIgnoreCase,rfReplaceAll]);
+   result := result.Replace('%MAJORVER%', IntToStr(FSemantiVersion.Major),[rfIgnoreCase,rfReplaceAll]);
+   result := result.Replace('%MINORVER%', IntToStr(FSemantiVersion.Minor),[rfIgnoreCase,rfReplaceAll]);
+   result := result.Replace('%PATCHVER%', IntToStr(FSemantiVersion.Patch),[rfIgnoreCase,rfReplaceAll]);
+   result := result.Replace('%BUILDVER%',  IntToStr(SemverToWindowsBuildVersion(FSemantiVersion)),[rfIgnoreCase,rfReplaceAll]); 
    result := result.Replace('%FILEVERSION%', FFILEVERSION,[rfIgnoreCase,rfReplaceAll]);
    result := result.Replace('%PRODUCTVERSION%', FPRODUCTVERSION,[rfIgnoreCase,rfReplaceAll]);
    result := result.Replace('%FILEVERSIONSTRING%', FFILEVERSIONSTRING,[rfIgnoreCase,rfReplaceAll]);
@@ -177,7 +206,6 @@ begin
     end;
 
     var templates := TDictionary<string, string>.Create;
-    
     var templateFileNames := TDirectory.GetFiles(FTemplatesFolder);
     for var templateFileName in templateFileNames do
     begin
@@ -185,14 +213,22 @@ begin
        templates.Add(TPath.GetFileName(templateFileName), template);
     end;
 
-    
-    
     for var compilerVersion in FCompilerVersions do
     begin
        result := ProcessTemplatesForVersion(compilerVersion, templates);
        if result <> EXIT_OK then
-        exit;     
+        exit;
     end;
+
+    //process inc files
+    templates.Clear;
+    templateFileNames := TDirectory.GetFiles(TPath.Combine(FTemplatesFolder, 'inc'));
+    for var templateFileName in templateFileNames do
+    begin
+       var template := TFile.ReadAllText(templateFileName);
+       templates.Add(TPath.GetFileName(templateFileName), template);
+    end;
+    result := ProcessIncFiles(iniFile, templates);
 
 
   finally
@@ -201,6 +237,14 @@ begin
 
 end;
 
+class function TPackageGenApplication.SemverToWindowsFileVersion(const version: TSemanticVersion): string;
+var
+  buildVer : integer;
+begin
+  buildVer := SemverToWindowsBuildVersion(version); 
+  result := Format('%d.%d.%d.%d', [version.Major, version.Minor, version.Patch, buildVer]);
+
+end;
 
 // Semver doesn't map well to windows fileversion, so this is a hack.
 //
@@ -214,7 +258,7 @@ end;
 // 0.1.2-beta.5 = 0.1.2.2005
 // 0.1.2 = 0.1.2.5000.
 
-class function TPackageGenApplication.SemverToWindowsFileVersion(const version: TSemanticVersion): string;
+class function TPackageGenApplication.SemverToWindowsBuildVersion(const version: TSemanticVersion): integer;
 begin
   var build : integer := 5000; //release base
   if not version.IsStable then //has a prerelease tag
@@ -235,7 +279,7 @@ begin
     end;
   end;
   
-  result := Format('%d.%d.%d.%d', [version.Major, version.Minor, version.Patch, build]);
+  result := build;
 end;
 
 end.
