@@ -1,18 +1,19 @@
-  gsIdVersionMajor = 10;
+{this inc file is generated during release }
+  gsIdVersionMajor = 11;
   {$NODEFINE gsIdVersionMajor}
-  gsIdVersionMinor = 6;
+  gsIdVersionMinor = 0;
   {$NODEFINE gsIdVersionMinor}
-  gsIdVersionRelease = 3;
+  gsIdVersionRelease = 0;
   {$NODEFINE gsIdVersionRelease}
-  gsIdVersionBuild = 3;
+  gsIdVersionBuild = 1;
   {$NODEFINE gsIdVersionBuild}
 
-  (*$HPPEMIT '#define gsIdVersionMajor 10'*)
-  (*$HPPEMIT '#define gsIdVersionMinor 6'*)
-  (*$HPPEMIT '#define gsIdVersionRelease 3'*)
-  (*$HPPEMIT '#define gsIdVersionBuild 3'*)
+  (*$HPPEMIT '#define gsIdVersionMajor 11'*)
+  (*$HPPEMIT '#define gsIdVersionMinor 0'*)
+  (*$HPPEMIT '#define gsIdVersionRelease 0'*)
+  (*$HPPEMIT '#define gsIdVersionBuild 1'*)
   (*$HPPEMIT ''*)
 
-  gsIdVersion = '10.6.3.3'; {do not localize}
+  gsIdVersion = '11.0.0.1'; {do not localize}
   gsIdProductName = 'Indy';  {do not localize}
-  gsIdProductVersion = '10.6.3'; {do not localize}
+  gsIdProductVersion = '11.0.0-alpha.1'; {do not localize}
