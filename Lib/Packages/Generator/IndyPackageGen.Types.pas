@@ -19,6 +19,8 @@ type
     Version : string;
     LibSuffix : string;
     PackageFolder : string;
+    NoGenDproj : boolean;
+    NoGenGroupProj : boolean;
   end;
 
 implementation
