@@ -106,7 +106,7 @@
     },
     {
      "src": "..\\IdCompilerDefines.inc",
-     "dest": "src\\system"
+     "dest": "src\\protocols"
     },
     {
      "src": "..\\protocols\\*.res",
@@ -116,7 +116,7 @@
      "src": "..\\protocols\\*.dcr",
      "dest": "src\\protocols"
     },
-	{
+    {
      "src": "..\\protocols\\*.obj",
      "dest": "src\\protocols"
     },
@@ -124,7 +124,7 @@
      "src": "..\\protocols\\ZLib\\**\\*.*",
      "dest": "src\\protocols\\ZLib"
     },
-	{
+    {
      "src": "..\\packages\\RAD Studio $compilerWithCodeName$\\*IndyProtocols.*",
      "dest": "src\\packages\\RAD Studio $compilerWithCodeName$",
      "exclude": [
@@ -140,12 +140,14 @@
    "build": [
     {
      "id": "IndyProtocols",
-     "project": ".\\packages\\RAD Studio $compilerWithCodeName$\\IndyProtocols.dproj",
-     "config": "release"
+     "project": "src\\Packages\\Rad Studio $compilerWithCodeName$\\IndyProtocols.dproj",
+     "config": "release",
+     "buildForDesign": true
     },
     {
      "id": "dclIndyProtocols",
-     "project": ".\\packages\\RAD Studio $compilerWithCodeName$\\dclIndyProtocols.dproj",
+     "project": "src\\Packages\\Rad Studio $compilerWithCodeName$\\dclIndyProtocols.dproj",
+     "designOnly": true,
      "config": "release"
     }
    ],
@@ -159,9 +161,10 @@
    "runtime": [
     {
      "buildId": "IndyProtocols",
-     "src": ".\\bin\\IndyProtocols$libSuffix$.bpl"
+     "src": ".\\bin\\IndyProtocols$libSuffix$.bpl",
+     "copyLocal": true
     }
-   ]   
+   ]
   }
  ]
 }

@@ -132,12 +132,13 @@
    "build": [
     {
      "id": "IndyCore",
-     "project": "src\\Packages\\$compilerWithCodeName$\\IndyCore.dproj",
-     "config": "Release"
+     "project": "src\\Packages\\Rad Studio $compilerWithCodeName$\\IndyCore.dproj",
+     "config": "Release",
+     "buildForDesign": true
     },
     {
      "id": "dclIndyCore",
-     "project": "src\\Packages\\$compilerWithCodeName$\\dclIndyCore.dproj",
+     "project": "src\\Packages\\Rad Studio $compilerWithCodeName$\\dclIndyCore.dproj",
      "designOnly": true,
      "config": "Release"
     }
@@ -152,14 +153,8 @@
    "runtime": [
     {
      "buildId": "IndyCore",
-     "src": ".\\bin\\IndyCore.bpl"
-    }
-   ],
-   "lib": [
-    {
-     "src": ".\\lib\\$compiler$\\$platform$\\lib",
-     "dest": "lib",
-     "ignore": true
+     "src": ".\\bin\\IndyCore.bpl",
+     "copyLocal": true
     }
    ]
   }
